@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?xml-stylesheet href="http://moise.sourceforge.net/xml/os.xsl" type="text/xsl" ?>
+
+<organisational-specification 
+    id="diabetes_diagnosis_team"
+    os-version="0.8"
+  
+    xmlns='http://moise.sourceforge.net/os'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://moise.sourceforge.net/os
+                        http://moise.sourceforge.net/xml/os.xsd' >
+    
+<structural-specification>
+
+<role-definitions>
+    <role id="diagnosis_session_manager" />
+    <role id="diabetes_classifier" />
+    <role id="diabetes_classifier_mentor"/>
+    <role id="dataset_tuple_reader"/>
+   
+</role-definitions>
+
+<group-specification id="diagnosis_session_group">
+    <roles>
+        <role id="diagnosis_session_manager" min="1" max="1"/>
+        <role id="diabetes_classifier" min="1"/>
+        <role id="diabetes_classifier_mentor" min="1" max="1"/>
+        <role id="dataset_tuple_reader" min="1" max="1"/>
+    </roles>
+</group-specification>
+</structural-specification>
+
+<functional-specification>
+    <scheme id="diagnosis_session_scheme">
+    
+        <goal id="diabetes_diagnosis_session_finished">
+        	<argument id="Communication_medium_id" />
+     		<argument id="Diagnosis_result_medium_id" />
+     		<argument id="Measure_comm_medium_id"/>
+            <plan operator="sequence" >
+                <goal id="start_vote_session"    ttf="2 minutes" ds="Manager creates the artifacts"/>
+                <goal id="register_to_vote_session"/> 
+                <goal id="mentor_presentation"/>
+                <goal id="start_reading_tuples" ttf="15 minutes" ds="Data set reader starts to read data set entries"/>
+                <goal id="inform_no_tuples_to_read"/>
+                <goal id="close_vote_session"/>
+            </plan>
+        </goal>
+
+        <mission id="diagnosis_session_manager_mission" min="1" max="1">
+            <goal id="start_vote_session"/>
+            <goal id="close_vote_session"/>
+        </mission>
+        
+        <mission id="diabetes_classifier_mission" min="1" max="100">
+            <goal id="register_to_vote_session"/>
+        </mission>
+        
+         <mission id="diabetes_classifier_mentor_mission" min="1" max="1">
+          <goal id="mentor_presentation"/>
+        </mission>
+        
+        <mission id="dataset_tuple_reader_mission" min="1" max="1">
+            <goal id="start_reading_tuples"/>
+            <goal id="inform_no_tuples_to_read"/>
+        </mission>
+        
+    </scheme>
+</functional-specification>
+
+<normative-specification>
+    <!-- the norms of the application -->
+    
+    <norm id="norm_diagnosis_session_manager" type="obligation" role="diagnosis_session_manager" mission="diagnosis_session_manager_mission"/>
+    <norm id="norm_diabetes_classifier" type="obligation" role="diabetes_classifier" mission="diabetes_classifier_mission"/>
+    <norm id="norm_diabetes_classifier_mentor" type="obligation" role="diabetes_classifier_mentor" mission="diabetes_classifier_mentor_mission"/>
+    <norm id="norm_dataset_tuple_reader" type="obligation" role="dataset_tuple_reader" mission="dataset_tuple_reader_mission"/>
+   
+</normative-specification>
+
+</organisational-specification>
