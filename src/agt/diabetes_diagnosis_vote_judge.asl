@@ -38,17 +38,17 @@ number_of_voters(0).
 +!read_next_patient_dataset_tuple: tuple_reader_agent(TupleReaderAgent) <-
 	.send(TupleReaderAgent,achieve,read_next_patient_data_tuple).
 
-/*Consigna 6 A */
+/*Consigna 6 A 
 
 +number_of_votes(CurrentNumberOfVotes) : (vote_session_started & number_of_voters(NumberOfVoters) & CurrentNumberOfVotes == NumberOfVoters  )
 	<- 
 	getVotationResults(TupleNumber,PositiveVotes,NegativeVotes)
 	.println("Positive votes: ",PositiveVotes," Negative votes: ",NegativeVotes)
 	!read_next_patient_dataset_tuple.
-/*Consigna 6 B */
+/*Consigna 6 B 
 +no_tuples_to_read <-
 	.println("Votation session ended").
-
+*/
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }
 
