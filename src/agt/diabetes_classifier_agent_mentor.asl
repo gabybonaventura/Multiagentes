@@ -4,21 +4,17 @@
 
 /* Initial goals */
 
++start_vote_registration [source(JudgeAgent)] <- .send(JudgeAgent,tell,new_voter_registration). 
+  
++!focus(ArtId) <-  // goal sent by the Agents to focus artefacts 
+	lookupArtifact(ArtId,MediumId);      
+	focus(MediumId). 
+ 
++mentor(MentorAgent) <- !ask_model_path. 
+ 
++patient_measures(PatientMeasure): ml_algorithm(AlgType) <-  !perform_diabetes_diagnosis(PatientMeasure). 
 
 /* Plans to teach agents */
-
-+!perform_diabetes_diagnosis(PatientMeasure) : ml_algorithm(decision_tree) <-
-	?model_path(decision_tree,ModelPath);
-	jia.classifyDecisionTreeDiabetesDiagnosis(ModelPath,PatientMeasure,PartialResult);
-	.println("Decision tree diabetes diagnosis result is ",PartialResult);
-	voteOption(PartialResult).
-
-+!perform_diabetes_diagnosis(PatientMeasure) : ml_algorithm(feed_forward_network) <-
-    ?model_path(feed_forward_network,ModelPath);
-	jia.classifyFeedforwardNeuralNetworkDiabetesDiagnosis(ModelPath,PatientMeasure,PartialResult);
-	.println("Feedforward neural network diagnosis result is ",PartialResult);
-	voteOption(PartialResult).
-
 
 +model_path(AlgType)[source(AgentName)] <-
 	jia.determineModelPath(AlgType,ModelPath);
