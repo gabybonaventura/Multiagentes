@@ -3,19 +3,18 @@ package classifiers;
 import java.util.ArrayList;
 
 import weka.classifiers.functions.MultilayerPerceptron;
-import weka.classifiers.meta.FilteredClassifier;
 import weka.core.Attribute;
 import weka.core.DenseInstance;
 import weka.core.Instance;
 import weka.core.Instances;
 
-public class Classifier {
+public class FeedforwardClassifier {
 
-	private FilteredClassifier mlp;
+	private MultilayerPerceptron mlp;
 	private Instances testData;
 
-	public Classifier(String modelFilePath) throws Exception {
-		this.mlp = (FilteredClassifier) weka.core.SerializationHelper.read(modelFilePath);
+	public FeedforwardClassifier(String modelFilePath) throws Exception {
+		this.mlp = (MultilayerPerceptron) weka.core.SerializationHelper.read(modelFilePath);
 
 		ArrayList<Attribute> attributes = new ArrayList<>(9);
 		attributes.add(new Attribute("Number of times pregnant"));

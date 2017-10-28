@@ -34,15 +34,14 @@ number_of_tuples(NumberOfTuples) & (CurrentTupleNumber + 1) == NumberOfTuples <-
 -+no_tuples_to_read(true);
 !inform_no_tuples_to_read.
 +current_patient_tuple(PatientDataTuple) : true
- <-
-  clearPatientMeasureData;
-  .length(PatientDataTuple,NumberOfFields);
-   for(.range(Index,0,NumberOfFields - 1)){
-              jia.getDoubleItemFromArrayAtIxdex(Index,PatientDataTuple,Measure);
-           addPatientField(Measure)    
-   };
- .println("patient data measures: ",PatientDataTuple);
-  sendPatientMeasureData.
+<-
+.length(PatientDataTuple,NumberOfFields);
+for(.range(Index,0,NumberOfFields - 1)){
+jia.getDoubleItemFromArrayAtIxdex(Index,PatientDataTuple,Measure);
+addPatientField(Measure)
+};
+.println("patient data measures: ",PatientDataTuple);
+sendPatientMeasureData.
 
 -!inform_no_tuples_to_read : no_tuples_to_read(false) <-
 .println("waiting to read all tuples to inform the end of the session").
