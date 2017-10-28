@@ -18,7 +18,8 @@
     <role id="diabetes_classifier" />
     <role id="diabetes_classifier_mentor"/>
     <role id="dataset_tuple_reader"/>
-   
+    <role id="final_judge"/>
+
 </role-definitions>
 
 <group-specification id="diagnosis_session_group">

@@ -38,6 +38,7 @@ organisation aorg : diabetes_diagnosis_team.xml {
 			decision_tree_classifier_agent diabetes_classifier
 			feed_forward_network_classifier_agent diabetes_classifier
 			measurement_agent dataset_tuple_reader
+			doctor_agent final_judge
 		debug
 	}
 }

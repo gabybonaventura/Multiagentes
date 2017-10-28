@@ -4,14 +4,14 @@
 !start_diabetes_session_org("diabetes_session_id").
 /* Plans */
 +!start_diabetes_session_org(SessionId) <-
-	// creates a scheme to coordinate the diagnosis session
-	.concat("sch_",SessionId,SchName);
-	makeArtifact(SchName, "ora4mas.nopl.SchemeBoard",["src/org/diabetes_diagnosis_team.xml",diagnosis_session_scheme],SchArtId);
-	debug(inspector_gui(on))[artifact_id(SchArtId)];
-	.my_name(Me); setOwner(Me)[artifact_id(SchArtId)]; // I am the owner of this scheme!
-	focus(SchArtId);
-	addScheme(SchName); // set the group as responsible for the scheme
-	commitMission(diagnosis_session_manager_mission)[artifact_id(SchArtId)].
+// creates a scheme to coordinate the diagnosis session
+.concat("sch_",SessionId,SchName);
+makeArtifact(SchName, "ora4mas.nopl.SchemeBoard",["src/org/diabetes_diagnosis_team.xml",diagnosis_session_scheme],SchArtId);
+debug(inspector_gui(on))[artifact_id(SchArtId)];
+.my_name(Me); setOwner(Me)[artifact_id(SchArtId)]; // I am the owner of this scheme!
+focus(SchArtId);
+addScheme(SchName); // set the group as responsible for the scheme
+commitMission(diagnosis_session_manager_mission)[artifact_id(SchArtId)].
 
 +!start_vote_session[scheme(SchArtId)] <-
 !create_diagnosis_depository(SchArtId);
