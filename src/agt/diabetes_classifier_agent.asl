@@ -26,20 +26,7 @@ mentor(Mentor) <-
 .send(Mentor, askHow, { +!perform_diabetes_diagnosis(PatientMeasure)},
 Plan);
 .add_plan(Plan);
-!perform_diabetes_diagnosis(PatientMeasure).
-
-
-+!perform_diabetes_diagnosis(PatientMeasure) : ml_algorithm(descision_tree) <-
-	?model_path(decision_tree,ModelPath);
-	jia.classifyDecisionTreeDiabetesDiagnosis(ModelPath,PatientMeasure,PartialResult);
-	.println("Decision tree diabetes diagnosis result is ", PartialResult);
-	voteOption(PartialResult).
-
-+!perform_diabetes_diagnosis(PatientMeasure) : ml_algorithm(feed_fordward_network) <-
-	?model_path(feed_forward_network,ModelPath);
-	jia.classifyFeedforwardNeuralNetworkDiabetesDiagnosis(ModelPath,PatientMeasure,PartialResult);
-	.println("Feedforward neural network diagnosis result is ", PartialResult);
-	voteOption(PartialResult).		
+!perform_diabetes_diagnosis(PatientMeasure).		
 
 +!ask_model_path : mentor(Mentor) & ml_algorithm(AlgType) <-
 .send(Mentor,tell,model_path(AlgType)).
