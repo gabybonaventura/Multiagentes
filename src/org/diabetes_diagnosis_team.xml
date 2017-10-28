@@ -27,6 +27,7 @@
         <role id="diabetes_classifier" min="1"/>
         <role id="diabetes_classifier_mentor" min="1" max="1"/>
         <role id="dataset_tuple_reader" min="1" max="1"/>
+        <role id="final_judge" min="1" max="1"/>
     </roles>
 </group-specification>
 </structural-specification>
@@ -45,6 +46,7 @@
                 <goal id="start_reading_tuples" ttf="15 minutes" ds="Data set reader starts to read data set entries"/>
                 <goal id="inform_no_tuples_to_read"/>
                 <goal id="close_vote_session"/>
+                <goal id="final_report"/>
             </plan>
         </goal>
 
@@ -66,6 +68,9 @@
             <goal id="inform_no_tuples_to_read"/>
         </mission>
         
+        <mission id="final_judge_mission" min="1" max="1">
+            <goal id="final_report"/>
+        </mission>
     </scheme>
 </functional-specification>
 
@@ -76,6 +81,8 @@
     <norm id="norm_diabetes_classifier" type="obligation" role="diabetes_classifier" mission="diabetes_classifier_mission"/>
     <norm id="norm_diabetes_classifier_mentor" type="obligation" role="diabetes_classifier_mentor" mission="diabetes_classifier_mentor_mission"/>
     <norm id="norm_dataset_tuple_reader" type="obligation" role="dataset_tuple_reader" mission="dataset_tuple_reader_mission"/>
+    <norm id="norm_final_judge" type="obligation" role="final_judge" mission="final_judge_mission"/>
+
    
 </normative-specification>
 

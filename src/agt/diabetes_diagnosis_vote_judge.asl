@@ -1,54 +1,46 @@
 // Agent diabetes_diagnosis_vote_judge in project diabetes_mas
-
-/* Initial beliefs and rules */
-number_of_voters(0).
+/*Paso 5 */
 /* Initial goals */
-!configure_vote_session.
-
+!start_diabetes_session_org("diabetes_session_id").
 /* Plans */
++!start_diabetes_session_org(SessionId) <-
+	// creates a scheme to coordinate the diagnosis session
+	.concat("sch_",SessionId,SchName);
+	makeArtifact(SchName, "ora4mas.nopl.SchemeBoard",["src/org/diabetes_diagnosis_team.xml",diagnosis_session_scheme],SchArtId);
+	debug(inspector_gui(on))[artifact_id(SchArtId)];
+	.my_name(Me); setOwner(Me)[artifact_id(SchArtId)]; // I am the owner of this scheme!
+	focus(SchArtId);
+	addScheme(SchName); // set the group as responsible for the scheme
+	commitMission(diagnosis_session_manager_mission)[artifact_id(SchArtId)].
 
-+!configure_vote_session <-
-	!create_diagnosis_depository;
-	!create_measure_communication_medium;
-	.broadcast(tell,start_vote_registration);
-	.wait(1000);
-	+vote_session_started
-	.println("start vote session");
-	!start_patient_dataset_reader.
-
-+!create_diagnosis_depository <-
-	makeArtifact(diagnosis_result_depository,
-	"diabetes_mas.DiagnosisResultDepository", [], ArtId);
-	focus(ArtId).
-
-+!create_measure_communication_medium : true <-
-	makeArtifact(measure_comm_medium,"diabetes_mas.MeasuresCommunicationMedium",[],MediumId)
-	?tuple_reader_agent(TupleReaderAgent)
-	.send(TupleReaderAgent,achieve,focus(measure_comm_medium)).
-/*Consigna 4 */
-+new_voter_registration[source(VoterAgent)] 
-	<- ?number_of_voters(Number); -+number_of_voters(Number + 1);
-	?mentor(MentorAgent) .send(VoterAgent,tell,mentor(MentorAgent));
-	.send(VoterAgent,achieve,focus(diagnosis_result_depository));
-	.send(VoterAgent,achieve,focus(measure_comm_medium)).
-/*Consigna 5 */
-+!start_patient_dataset_reader: tuple_reader_agent(TupleReaderAgent) <-
-	.send(TupleReaderAgent,achieve,start_patient_data_reader).
-
++!start_vote_session[scheme(SchArtId)] <-
+!create_diagnosis_depository(SchArtId);
+!create_measure_communication_medium(SchArtId);
++vote_session_started.
++!create_diagnosis_depository(SchArtId) <-
+	makeArtifact(diagnosis_result_depository, "diabetes_mas.DiagnosisResultDepository", [], ArtId);
+	focus(ArtId);
+	setArgumentValue(diag_res_dep,"Diagnosis_result_medium_id",diagnosis_result_depository)[artifact_id(SchArtId)].
++!create_measure_communication_medium(SchArtId) <-
+	makeArtifact(measure_comm_medium,"diabetes_mas.MeasuresCommunicationMedium",[],MediumId);
+	setArgumentValue(comm_medium,"Measure_comm_medium_id",measure_comm_medium)[artifact_id(SchArtId)].
++commitment(AgentName, MisId, SchId): MisId == dataset_tuple_reader_mission <-
++tuple_reader_agent(AgentName).
++number_of_votes(CurrentNumberOfVotes): vote_session_started & number_of_agents_subcribed(NumberOfAgents) & CurrentNumberOfVotes == NumberOfAgents <-
+	getVotationResults(PatientTupleNumber,PositiveVotes,NegativeVotes);
+	.println("Positive votes: ",PositiveVotes," Negative votes: ",NegativeVotes);
+!read_next_patient_dataset_tuple.
 +!read_next_patient_dataset_tuple: tuple_reader_agent(TupleReaderAgent) <-
 	.send(TupleReaderAgent,achieve,read_next_patient_data_tuple).
++!close_vote_session <-
+	.println("Vote session ended").
 
-/*Consigna 6 A 
++number_of_votes(CurrentNumberOfVotes) : (vote_session_started & number_of_agents_subcribed(NumberOfAgents) & CurrentNumberOfVotes == NumberOfAgents) <-
+	?mentor(MentorAgent) getVotationResults(PatientTupleNumber,PositiveVotes,NegativeVotes);
+	.send(DoctorAgent,tell,partial_diagnosis_result(PatientTupleNumber,PositiveVotes,NegativeVotes));
+!read_next_patient_dataset_tuple.
 
-+number_of_votes(CurrentNumberOfVotes) : (vote_session_started & number_of_voters(NumberOfVoters) & CurrentNumberOfVotes == NumberOfVoters  )
-	<- 
-	getVotationResults(TupleNumber,PositiveVotes,NegativeVotes)
-	.println("Positive votes: ",PositiveVotes," Negative votes: ",NegativeVotes)
-	!read_next_patient_dataset_tuple.
-/*Consigna 6 B 
-+no_tuples_to_read <-
-	.println("Votation session ended").
-*/
+
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }
 

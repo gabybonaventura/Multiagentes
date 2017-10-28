@@ -13,6 +13,7 @@
 */
 mas diabetes_mas {
 
+	agent doctor_agent : doctor_agent.asl
 	agent measurement_agent : measurement_agent.asl
 	agent ml_classifier_mentor_agent : diabetes_classifier_agent_mentor.asl
 	agent diabetes_diagnosis_vote_judge_agent : diabetes_diagnosis_vote_judge.asl{
@@ -30,13 +31,16 @@ mas diabetes_mas {
 	beliefs: ml_algorithm(feed_forward_network)
 	}
 	
-	workspace diabetes_diagnosis_room {
-	agents: measurement_agent,
-	feed_forward_network_classifier_agent,
-	diabetes_diagnosis_vote_judge_agent,
-	decision_tree_classifier_agent,
-	ml_classifier_mentor_agent
+organisation aorg : diabetes_diagnosis_team.xml {
+	group agrp : diagnosis_session_group {
+		players: diabetes_diagnosis_vote_judge_agent diagnosis_session_manager
+			ml_classifier_mentor_agent diabetes_classifier_mentor
+			decision_tree_classifier_agent diabetes_classifier
+			feed_forward_network_classifier_agent diabetes_classifier
+			measurement_agent dataset_tuple_reader
+		debug
 	}
+}
 	
 	// agent source path
 	asl-path: src/agt
