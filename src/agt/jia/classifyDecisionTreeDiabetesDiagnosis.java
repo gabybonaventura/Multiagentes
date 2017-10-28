@@ -2,7 +2,7 @@
 
 package jia;
 
-import classifiers.TreeClassifier;
+import classifiers.Classifier;
 import jason.JasonException;
 import jason.asSemantics.DefaultInternalAction;
 import jason.asSemantics.TransitionSystem;
@@ -27,7 +27,7 @@ public class classifyDecisionTreeDiabetesDiagnosis extends DefaultInternalAction
     	
     	StringTerm modelPath = (StringTermImpl) args[0];
     	
-    	TreeClassifier classifier = new TreeClassifier(modelPath.getString());
+    	Classifier classifier = new Classifier(modelPath.getString());
     	
     	if (args[1].isList() == false) {
     		throw new JasonException("second argument is not a list");

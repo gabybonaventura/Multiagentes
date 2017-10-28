@@ -2,8 +2,7 @@
 
 package jia;
 
-import classifiers.FeedforwardClassifier;
-import classifiers.TreeClassifier;
+import classifiers.Classifier;
 import jason.*;
 import jason.asSemantics.*;
 import jason.asSyntax.*;
@@ -21,7 +20,7 @@ public class classifyFeedforwardNeuralNetworkDiabetesDiagnosis extends DefaultIn
 
     	StringTerm modelPath = (StringTermImpl) args[0];
     	
-    	FeedforwardClassifier classifier = new FeedforwardClassifier(modelPath.getString());
+    	Classifier classifier = new Classifier(modelPath.getString());
     	
     	if (args[1].isList() == false) {
     		throw new JasonException("second argument is not a list");
