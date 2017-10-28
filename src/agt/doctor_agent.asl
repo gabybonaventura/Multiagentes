@@ -13,12 +13,12 @@ makeArtifact(doctor_result_artefact,"diabetes_mas.DoctorResultArtefact", [], Art
 focus(ArtId).
 
 +partial_diagnosis_result(PatientTupleNumber,PositiveCases,NegativeCases) <-
-.addPartialDiagnosisResult(PositiveCases,NegativeCases).
+addPartialDiagnosisResult(PositiveCases,NegativeCases).
 
 
 +!final_report: true <-
-.buildFinalReport(FinalReport); 
-.println("Positive cases: ",PositiveCases," Negative cases: ",NegativeCases).
+buildFinalReport(FinalReport); 
+.println(FinalReport).
 
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }
