@@ -43,7 +43,7 @@ number_of_voters(0).
 /*Consigna 6 A */
 
 +number_of_votes(CurrentNumberOfVotes) : (vote_session_started & number_of_voters(NumberOfVoters) & CurrentNumberOfVotes == NumberOfVoters  )
-	<- 
+<- 
 	getVotationResults(TupleNumber,PositiveVotes,NegativeVotes)
 	.println("Positive votes: ",PositiveVotes," Negative votes: ",NegativeVotes)
 	!read_next_patient_dataset_tuple.
