@@ -17,7 +17,7 @@ addPartialDiagnosisResult(PositiveCases,NegativeCases).
 
 
 +!final_report: true <-
-buildFinalReport(FinalReport); 
+buildFinalReport(FinalReport);
 .println(FinalReport).
 
 { include("$jacamoJar/templates/common-cartago.asl") }
