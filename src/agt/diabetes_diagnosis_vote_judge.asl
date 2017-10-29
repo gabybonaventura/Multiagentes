@@ -26,8 +26,6 @@ commitMission(diagnosis_session_manager_mission)[artifact_id(SchArtId)].
 	makeArtifact(measure_comm_medium,"diabetes_mas.MeasuresCommunicationMedium",[],MediumId);
 	setArgumentValue(comm_medium,"Measure_comm_medium_id",measure_comm_medium)[artifact_id(SchArtId)].
 	
-+commitment(AgentName, MisId, SchId): MisId == dataset_tuple_reader_mission <-
-	+tuple_reader_agent(AgentName).
 
 +number_of_votes(CurrentNumberOfVotes): vote_session_started & number_of_agents_subcribed(NumberOfAgents) & CurrentNumberOfVotes == NumberOfAgents <-
 	getVotationResults(PatientTupleNumber,PositiveVotes,NegativeVotes);
