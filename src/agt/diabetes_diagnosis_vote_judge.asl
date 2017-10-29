@@ -26,22 +26,19 @@ commitMission(diagnosis_session_manager_mission)[artifact_id(SchArtId)].
 	setArgumentValue(comm_medium,"Measure_comm_medium_id",measure_comm_medium)[artifact_id(SchArtId)].
 +commitment(AgentName, MisId, SchId): MisId == dataset_tuple_reader_mission <-
 +tuple_reader_agent(AgentName).
+
 +number_of_votes(CurrentNumberOfVotes): vote_session_started & number_of_agents_subcribed(NumberOfAgents) & CurrentNumberOfVotes == NumberOfAgents <-
-	getVotationResults(PatientTupleNumber,PositiveVotes,NegativeVotes);
+getVotationResults(PatientTupleNumber,PositiveVotes,NegativeVotes);
 	.println("Positive votes: ",PositiveVotes," Negative votes: ",NegativeVotes);
-!read_next_patient_dataset_tuple.
+	?final_judge_agent(FinalJudge);
+	.send(FinalJudge,tell,partial_diagnosis_result(PatientTupleNumber,PositiveVotes,NegativeVotes));
+	//Existe un error en estas 2 lineas anteriores que no permiten enviar los dianosticos al doctor_agent
+	!read_next_patient_dataset_tuple.
+
 +!read_next_patient_dataset_tuple: tuple_reader_agent(TupleReaderAgent) <-
 	.send(TupleReaderAgent,achieve,read_next_patient_data_tuple).
 +!close_vote_session <-
 	.println("Vote session ended").
-
-+number_of_votes(CurrentNumberOfVotes): vote_session_started & number_of_agents_subcribed(NumberOfAgents) & CurrentNumberOfVotes == NumberOfAgents <-
-	getVotationResults(PatientTupleNumber,PositiveVotes,NegativeVotes);
-	.println("Positive votes: ",PositiveVotes," Negative votes: ",NegativeVotes);
-	?final_judge_agent(FinalJudge);
-	.send(FinalJudge,tell,partial_diagnosis_result(PatientTupleNumber,PositiveVotes,NegativeVotes));
-	!read_next_patient_dataset_tuple.
-
 
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }
