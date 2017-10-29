@@ -35,10 +35,12 @@ commitMission(diagnosis_session_manager_mission)[artifact_id(SchArtId)].
 +!close_vote_session <-
 	.println("Vote session ended").
 
-+number_of_votes(CurrentNumberOfVotes) : (vote_session_started & number_of_agents_subcribed(NumberOfAgents) & CurrentNumberOfVotes == NumberOfAgents) <-
-	?mentor(MentorAgent) getVotationResults(PatientTupleNumber,PositiveVotes,NegativeVotes);
-	.send(DoctorAgent,tell,partial_diagnosis_result(PatientTupleNumber,PositiveVotes,NegativeVotes));
-!read_next_patient_dataset_tuple.
++number_of_votes(CurrentNumberOfVotes): vote_session_started & number_of_agents_subcribed(NumberOfAgents) & CurrentNumberOfVotes == NumberOfAgents <-
+	getVotationResults(PatientTupleNumber,PositiveVotes,NegativeVotes);
+	.println("Positive votes: ",PositiveVotes," Negative votes: ",NegativeVotes);
+	?final_judge_agent(FinalJudge);
+	.send(FinalJudge,tell,partial_diagnosis_result(PatientTupleNumber,PositiveVotes,NegativeVotes));
+	!read_next_patient_dataset_tuple.
 
 
 { include("$jacamoJar/templates/common-cartago.asl") }
