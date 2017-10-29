@@ -16,10 +16,10 @@ mas diabetes_mas {
 	agent doctor_agent : doctor_agent.asl
 	agent measurement_agent : measurement_agent.asl
 	agent ml_classifier_mentor_agent : diabetes_classifier_agent_mentor.asl
-	agent diabetes_diagnosis_vote_judge_agent : diabetes_diagnosis_vote_judge.asl/*{
+	agent diabetes_diagnosis_vote_judge_agent : diabetes_diagnosis_vote_judge.asl{
 	beliefs:tuple_reader_agent(measurement_agent),
 	mentor(ml_classifier_mentor_agent)
-	}*/
+	}
 	
 	agent decision_tree_classifier_agent : diabetes_classifier_agent.asl {
 	instances: 4

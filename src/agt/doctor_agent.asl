@@ -9,19 +9,16 @@
 /* Plans */
 
 +!configure_my_result_artefact : true <-
-	.println("HOLA configure_my_result_artefact");
-	makeArtifact(doctor_result_artefact,"diabetes_mas.DoctorResultArtefact", [], ArtId);
-	focus(ArtId).
+makeArtifact(doctor_result_artefact,"diabetes_mas.DoctorResultArtefact", [], ArtId);
+focus(ArtId).
 
-+partial_diagnosis_result(PatientTupleNumber,PositiveCases,NegativeCases) : true <-
-	.println("HOLA partial_diagnosis_result");
-	addPartialDiagnosisResult(PositiveCases,NegativeCases).
++partial_diagnosis_result(PatientTupleNumber,PositiveCases,NegativeCases) <-
+addPartialDiagnosisResult(PositiveCases,NegativeCases).
 
 
 +!final_report: true <-
-	.println("HOLA final_report");
-	buildFinalReport(FinalReport);
-	.println(FinalReport).
+buildFinalReport(FinalReport);
+.println(FinalReport).
 
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }

@@ -6,10 +6,14 @@
                     http://jacamo.sf.net
 
 <<<<<<< HEAD
+<<<<<<< HEAD
                     October 29, 2017 - 16:44:00
 =======
                     October 29, 2017 - 16:20:47
 >>>>>>> 7b0e316b1b06ef91e6b611e8e180bfec807f54c0
+=======
+                    October 29, 2017 - 15:42:39
+>>>>>>> parent of bde5c64... arreglo
 -->
 
 <project name   ="diabetes_mas"
@@ -20,12 +24,12 @@
     <property name="debug" value=""/> <!-- use "-debug" to run in debug mode -->
     <property name="build.dir" value="${basedir}/bin/classes" />
 
-    <property name="jasonJar" value="D:\Mis Documentos\Ariel-Home\Downloads\TP MULTIAGENTES\jacamo-0.7-SNAPSHOT\libs\jason-2.3-SNAPSHOT.jar"/>
+    <property name="jasonJar" value="C:\Users\Gabriel\Desktop\IA\TP 3 Agentes\jacamo-0.7-SNAPSHOT\libs\jason-2.3-SNAPSHOT.jar"/>
 
     <path id="project.classpath">
         <pathelement location="${basedir}"/>
         <pathelement location="${build.dir}"/>
-        <fileset dir="D:\Mis Documentos\Ariel-Home\Downloads\TP MULTIAGENTES\jacamo-0.7-SNAPSHOT/libs" > <include name="*.jar" /> </fileset>
+        <fileset dir="C:\Users\Gabriel\Desktop\IA\TP 3 Agentes\jacamo-0.7-SNAPSHOT/libs" > <include name="*.jar" /> </fileset>
 
         <fileset dir="${basedir}/lib" >  <include name="*.jar" /> </fileset>
 
